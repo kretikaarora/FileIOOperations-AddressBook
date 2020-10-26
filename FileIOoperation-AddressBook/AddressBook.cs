@@ -7,6 +7,7 @@
 ///// Including the requried assemblies in to the programusing System;
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 
@@ -78,14 +79,13 @@ namespace AddressBookSystem
         /// </summary>
         public void DisplayContactPersonDetails()
         {
-            /// numberOfPersons declared to get number of contacts in a list 
-            int numberOfPersons = 1;
-            /// using foreach statement to print the details of contact 
+            ///sorting by name using lambda function
+            addressBookList.Sort((ContactPerson1, ContactPerson2) => ContactPerson1.firstName.CompareTo(ContactPerson2.firstName));
             foreach (ContactPerson contactPerson in addressBookList)
             {
-                Console.WriteLine("The Details of Contact Number {0} -", numberOfPersons);
+                Console.WriteLine("The Details of Contact Number sorted by first name");
                 Console.WriteLine("firstName : " + contactPerson.firstName + "  last name  :" + contactPerson.lastName + " address : " + contactPerson.address + " city : " + contactPerson.city + " state : " + contactPerson.state + "  zip : " + contactPerson.zip + " phone number : " + contactPerson.phoneNo + "  email :" + contactPerson.email);
-                numberOfPersons++;
+               
             }
         }
 
