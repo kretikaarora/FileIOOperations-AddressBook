@@ -76,11 +76,36 @@ namespace AddressBookSystem
 
         /// <summary>
         /// Displays the contact person details.
+        /// UC12
         /// </summary>
         public void DisplayContactPersonDetails()
         {
-            ///sorting by name using lambda function
-            addressBookList.Sort((ContactPerson1, ContactPerson2) => ContactPerson1.firstName.CompareTo(ContactPerson2.firstName));
+            ///sorting  using lambda function to sort with name , city , state , zip        
+            Console.WriteLine(" Press 1 to display by name ");
+            Console.WriteLine(" Press 2 to display by city ");
+            Console.WriteLine(" Press 3 to display by state ");
+            Console.WriteLine(" Press 4 to display by zip ");           
+            int option = Convert.ToInt32(Console.ReadLine());
+            switch(option)
+            {
+                case 1:
+                    addressBookList.Sort((ContactPerson1, ContactPerson2) => ContactPerson1.firstName.CompareTo(ContactPerson2.firstName));
+                    break;
+                case 2:
+                    addressBookList.Sort((ContactPerson1, ContactPerson2) => ContactPerson1.city.CompareTo(ContactPerson2.city));
+                    break;
+                case 3:
+                    addressBookList.Sort((ContactPerson1, ContactPerson2) => ContactPerson1.state.CompareTo(ContactPerson2.state));
+                    break;
+                case 4:
+                    addressBookList.Sort((ContactPerson1, ContactPerson2) => ContactPerson1.zip.CompareTo(ContactPerson2.zip));
+                    break;
+                default:
+                    Console.WriteLine("By default address book will be sorted by name");
+                    addressBookList.Sort((ContactPerson1, ContactPerson2) => ContactPerson1.firstName.CompareTo(ContactPerson2.firstName));
+                    break;
+            }
+            
             foreach (ContactPerson contactPerson in addressBookList)
             {
                 Console.WriteLine("The Details of Contact Number sorted by first name");

@@ -66,6 +66,13 @@ namespace AddressBookSystem
                     }
                     /// calling function to display contact details
                     addressBook.DisplayContactPersonDetails();
+                    Console.WriteLine("Press Y to sort by some other detail");
+                    char choice = Convert.ToChar(Console.ReadLine());
+                    if(choice == 'Y')
+                    {
+                        addressBook.DisplayContactPersonDetails();
+                    }
+
                     Console.WriteLine("enter an option ");
                     Console.WriteLine("1. To update the contact details");
                     Console.WriteLine("2. To delete the contact details");
