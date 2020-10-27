@@ -1,0 +1,14 @@
+Address Book Name: book
+firstName : kretika  last name  :aror address : home city : gbd state : haryana  zip : 7890 phone number : 65432  email :hh@
+firstName : ayush  last name  :arora address : home city : hyd state : telangana  zip : 7890 phone number : 7654  email :kkE@GM
+Address Book Name: A
+firstName : a  last name  :a address : a city : a state : a  zip : 7890 phone number : 65432  email :a
+firstName : kretika  last name  :arora address : wow city : finaaly state : working  zip : 8765 phone number : 76654  email :too
+Address Book Name: home
+firstName : 1  last name  :2 address : 3 city : 4 state : 5  zip : 6 phone number : 7  email :8
+Address Book Name: home
+firstName : 1  last name  :2 address : 3 city : 4 state : 5  zip : 6 phone number : 7  email :8
+Address Book Name: home2
+firstName : job  last name  :plac address : is  city : my  state : home2  zip : 67899 phone number : 76543  email :kre@gmail.com
+Address Book Name: CHECKINGStreamReader
+firstName : stream  last name  :reader address : mumbai city : mumbai state : maha  zip : 6789 phone number : 78653  email :kk3
