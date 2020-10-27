@@ -16,7 +16,9 @@ namespace AddressBookSystem
     {
         public static Dictionary<string, List<ContactPerson>> dictionaryByState = new Dictionary<string, List<ContactPerson>>();
         public static Dictionary<string, List<ContactPerson>> dictionaryByCity = new Dictionary<string, List<ContactPerson>>();
-        
+        public static Dictionary<string, List<ContactPerson>> dictionaryformultiplerecords = new Dictionary<string, List<ContactPerson>>();
+
+
         static void Main(string[] args)
         {
             Console.WriteLine("Welcome to Multiple Address Book ");
@@ -73,7 +75,7 @@ namespace AddressBookSystem
                         addressBook.DisplayContactPersonDetails();
                     }
 
-                    Console.WriteLine("enter an option ");
+                    Console.WriteLine("enter an option ");                  
                     Console.WriteLine("1. To update the contact details");
                     Console.WriteLine("2. To delete the contact details");
                     int option = Convert.ToInt32(Console.ReadLine());
@@ -93,9 +95,12 @@ namespace AddressBookSystem
                             break;
                         default:
                             break;
+                      
                     }
                     /// adding details in multiple address book using name enter and AddressBook instance created             
                     multipleAddressBook.AddMultipleAddressBook(name, addressBook);
+                    dictionaryformultiplerecords.Add(name, addressBook.addressBookList);
+                   
                 }
                 /// display multiple AddressBook using name of addressbook
                 multipleAddressBook.display();
@@ -127,6 +132,13 @@ namespace AddressBookSystem
                     char repeatCheck = Convert.ToChar(Console.ReadLine());
                     if (repeatCheck != 'Y')
                         repeatCity = false;
+                }
+                Console.WriteLine("To read all the contacts from streamWriter Press Y otherwise Press N");
+                char streamReadCheck = Convert.ToChar(Console.ReadLine());
+
+                if (streamReadCheck== 'Y')
+                {
+                    AddressBook.ReadFromStreamReader();
                 }
             }
             catch (Exception ex)

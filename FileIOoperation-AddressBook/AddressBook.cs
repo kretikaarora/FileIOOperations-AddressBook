@@ -8,6 +8,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 
@@ -22,7 +23,8 @@ namespace AddressBookSystem
         /// <summary>
         /// The address book list for storing details
         /// </summary>
-        private List<ContactPerson> addressBookList;
+        public List<ContactPerson> addressBookList;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="AddressBook"/> class.
         /// Non Parameterised Constructor for AddressBook
@@ -45,9 +47,9 @@ namespace AddressBookSystem
             if (checkForDuplicacy == true)
             {
                 addressBookList.Add(contactPerson);
-                Console.WriteLine("detail succesfully added");
-
-
+                Console.WriteLine("detail succesfully added");             
+                //ReadFromStreamReader();
+                WriteUsingStreamReader();
                 ///Adding details into dictionaryByState with state as key
                 if (Program.dictionaryByState.ContainsKey(contactPerson.state))
                 {
@@ -76,41 +78,42 @@ namespace AddressBookSystem
 
         /// <summary>
         /// Displays the contact person details.
-        /// UC12
         /// </summary>
         public void DisplayContactPersonDetails()
         {
-            ///sorting  using lambda function to sort with name , city , state , zip        
+            ///sorting  using lambda function
             Console.WriteLine(" Press 1 to display by name ");
             Console.WriteLine(" Press 2 to display by city ");
             Console.WriteLine(" Press 3 to display by state ");
-            Console.WriteLine(" Press 4 to display by zip ");           
+            Console.WriteLine(" Press 4 to display by zip ");
             int option = Convert.ToInt32(Console.ReadLine());
-            switch(option)
+            switch (option)
             {
                 case 1:
+                    Console.WriteLine("The Details of Contact Number sorted by name ");
                     addressBookList.Sort((ContactPerson1, ContactPerson2) => ContactPerson1.firstName.CompareTo(ContactPerson2.firstName));
                     break;
                 case 2:
+                    Console.WriteLine("The Details of Contact Number sorted by city ");
                     addressBookList.Sort((ContactPerson1, ContactPerson2) => ContactPerson1.city.CompareTo(ContactPerson2.city));
                     break;
                 case 3:
+                    Console.WriteLine("The Details of Contact Number sorted by state");
                     addressBookList.Sort((ContactPerson1, ContactPerson2) => ContactPerson1.state.CompareTo(ContactPerson2.state));
                     break;
                 case 4:
+                    Console.WriteLine("The Details of Contact Number sorted by zip ");
                     addressBookList.Sort((ContactPerson1, ContactPerson2) => ContactPerson1.zip.CompareTo(ContactPerson2.zip));
                     break;
                 default:
-                    Console.WriteLine("By default address book will be sorted by name");
+                    Console.WriteLine("By default sorting is done by name");
                     addressBookList.Sort((ContactPerson1, ContactPerson2) => ContactPerson1.firstName.CompareTo(ContactPerson2.firstName));
                     break;
             }
-            
+
             foreach (ContactPerson contactPerson in addressBookList)
-            {
-                Console.WriteLine("The Details of Contact Number sorted by first name");
+            {           
                 Console.WriteLine("firstName : " + contactPerson.firstName + "  last name  :" + contactPerson.lastName + " address : " + contactPerson.address + " city : " + contactPerson.city + " state : " + contactPerson.state + "  zip : " + contactPerson.zip + " phone number : " + contactPerson.phoneNo + "  email :" + contactPerson.email);
-               
             }
         }
 
@@ -224,6 +227,54 @@ namespace AddressBookSystem
             }
             Console.WriteLine("The count of {0} is {1}", searchCity, index);
         }
+
+        /// <summary>
+        /// Writing using Stream Reader
+        /// </summary>
+        public static void WriteUsingStreamReader()
+        {
+            Console.WriteLine("Writing contacts to file");
+            string path = "C:/Users/Administrator/Desktop/FileIOOperation-AddressBook/FileIOoperation-AddressBook/FileIOoperation-AddressBook/Records.txt";
+            if (File.Exists(path))
+            {
+                using (StreamWriter stream = File.AppendText(path))
+                {
+                    foreach (KeyValuePair<String, List<ContactPerson>> keyvaluepair in Program.dictionaryformultiplerecords)
+                    {
+                        string name = keyvaluepair.Key;
+                        List<ContactPerson> list = (List<ContactPerson>)keyvaluepair.Value;
+                        stream.WriteLine("Address Book Name: " + name);
+                        foreach (ContactPerson contactPerson in list)
+                        {
+                            stream.WriteLine("firstName : " + contactPerson.firstName + "  last name  :" + contactPerson.lastName + " address : " + contactPerson.address + " city : " + contactPerson.city + " state : " + contactPerson.state + "  zip : " + contactPerson.zip + " phone number : " + contactPerson.phoneNo + "  email :" + contactPerson.email);
+                        }
+                       // Console.WriteLine(File.ReadAllText(path));
+                    }
+                    Console.WriteLine("Address Book written into the file successfully");                   
+                    
+                    stream.Flush();
+                }
+            }
+
+        }
+        /// <summary>
+        /// Reading using Stream Reader
+        /// </summary>
+        public static void ReadFromStreamReader()
+        {
+        string path = "C:/Users/Administrator/Desktop/FileIOOperation-AddressBook/FileIOoperation-AddressBook/FileIOoperation-AddressBook/Records.txt";
+            using (StreamReader sr = File.OpenText(path))
+            {
+                string line = "";
+                while ((line = sr.ReadLine()) != null)
+                {
+                    Console.WriteLine(line);
+                }
+                sr.Close();
+            }
+           
+        }
+
     }
 }
 
