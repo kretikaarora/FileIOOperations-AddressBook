@@ -348,6 +348,61 @@ namespace AddressBookSystem
                 }                
             }          
         }
+
+        /// <summary>
+        /// Writing Contacts As JsonFile
+        /// UC15
+        /// </summary>
+        /// <param name="dictionaryOfMultipleRecord"></param>
+        /// <param name="nameOfBook"></param>
+        public static void WritingContactsAsJsonFile(Dictionary<string, List<ContactPerson>> dictionaryOfMultipleRecord, String nameOfBook)
+        {
+
+            ///creating different files for diff addressbook so path changes accordingly
+            foreach (KeyValuePair<string, List<ContactPerson>> keyValuePair in dictionaryOfMultipleRecord)
+            {
+                string path = "C:/Users/Administrator/Desktop/FileIOOperation-AddressBook/FileIOoperation-AddressBook/FileIOoperation-AddressBook" + nameOfBook + ".json";
+                string name = keyValuePair.Key;
+                List<ContactPerson> list = keyValuePair.Value;
+                if (name.Equals(nameOfBook))
+                {
+                    ///creating a streamwriter instance
+                    StreamWriter stream = new StreamWriter(path);
+                    ///serialising it to conver it into json file
+                    Newtonsoft.Json.JsonSerializer serializer = new Newtonsoft.Json.JsonSerializer();
+                    JsonWriter jsonWriter = new JsonTextWriter(stream);
+                    serializer.Serialize(stream, list);
+                    stream.Flush();
+                    stream.Close();
+                    Console.WriteLine("details added successfully in json");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Reading Contacts From JsonFile()
+        /// UC15
+        /// </summary>
+        public static void ReadingContactsFromJsonFile()
+        {
+            Console.WriteLine("Reading Contacts from json files ");
+            foreach (KeyValuePair<string, List<ContactPerson>> keyValuePair in Program.dictionaryformultiplerecords)
+            {
+                //defining path for each address book
+                string path = "C:/Users/Administrator/Desktop/FileIOOperation-AddressBook/FileIOoperation-AddressBook/FileIOoperation-AddressBook" + keyValuePair.Key + ".json";
+                ///deserializing object from json file, reading files and typecasting to list
+                List<ContactPerson> list = JsonConvert.DeserializeObject<List<ContactPerson>>(File.ReadAllText(path));
+                foreach (ContactPerson contactPerson in list)
+                {
+                    Console.WriteLine("firstName : " + contactPerson.firstName + "  last name  :" + contactPerson.lastName + " address : " + contactPerson.address + " city : " + contactPerson.city + " state : " + contactPerson.state + "  zip : " + contactPerson.zip + " phone number : " + contactPerson.phoneNo + "  email :" + contactPerson.email);
+                    Console.WriteLine("/n");
+                }
+            }
+        }
+
+
+
+
     }
 }
 

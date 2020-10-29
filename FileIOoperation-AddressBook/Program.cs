@@ -101,8 +101,10 @@ namespace AddressBookSystem
                         Console.WriteLine("Press 3 To Write using Stream Reader ");
                         Console.WriteLine("Press 4 To Read all the contacts from file using stream Reader");
                         Console.WriteLine("Press 5 To Write Contacts to a Csv File ");
-                        Console.WriteLine("Press 6 To Read all the contacts from Csv file ");                       
-                        Console.WriteLine("Press 7 to exit");
+                        Console.WriteLine("Press 6 To Read all the contacts from Csv file ");
+                        Console.WriteLine("Press 7 To write contacts into a Json File");
+                        Console.WriteLine("Press 8 To read contacts from a Json File");
+                        Console.WriteLine("Press 9 to exit");
                         int checkOption = Convert.ToInt32(Console.ReadLine());
                         switch (checkOption)
                         {
@@ -136,8 +138,23 @@ namespace AddressBookSystem
                                 break;
                             case 6:
                                 AddressBook.ReadingContactsFromCsvFile();
-                                break;                               
-                           case 7:
+                                break;
+                            case 7:
+                                Console.WriteLine("Write name of the address Book you which you want to write");
+                                string nameOfAddressBookJson = Console.ReadLine();
+                                if (Program.dictionaryformultiplerecords.ContainsKey(nameOfAddressBookJson))
+                                {
+                                    AddressBook.WritingContactsAsJsonFile(dictionaryformultiplerecords, nameOfAddressBookJson);
+                                }
+                                else
+                                {
+                                    Console.WriteLine("addressBook Name not Found");
+                                }
+                                break;
+                            case 8:
+                                AddressBook.ReadingContactsFromJsonFile();
+                                break;
+                            case 9:
                                 flag1 = false;
                                 break;
                         }
